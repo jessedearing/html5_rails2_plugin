@@ -52,6 +52,7 @@ module Html5Helpers
   end
   
   class FormBuilder < ::ActionView::Helpers::FormBuilder
+    #this was based on the ::ActionView::Helpers::FormBuilder class in the Rails code
     FormHelper.instance_methods.each do |selector|
       src, line = <<-end_src, __LINE__ + 1
         def #{selector}(method, options = {})  # def text_field(method, options = {})
@@ -64,6 +65,9 @@ module Html5Helpers
       end_src
       class_eval src, __FILE__, line
     end
+    
+    # Adds the methods to the field_helpers which is part of the "magic" that helps render the tag
+    # This was the key I was missing that was handled in the Rails code
     self.field_helpers << FormHelper.instance_methods
   end
 end
