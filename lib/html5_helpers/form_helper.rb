@@ -56,12 +56,84 @@ module Html5Helpers
       options = options.stringify_keys
       InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("range", options)
     end
+    
+    # Returns an input tag of type "datetime". The value should respond to :strftime or be a String
+    # of the format '%Y-%m-%dT%H:%M:%SZ' in order to conform to the HTML5 specification.
+    def datetime_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag('datetime', options)
+    end
+
+    # Returns an input tag of type "date". The value should respond to :strftime or be a String
+    # of the format '%Y-%m-%d' in order to conform to the HTML5 specification.
+    def date_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag('date', options)
+    end
+
+    # Returns an input tag of type "month". The value should respond to :strftime or be a String
+    # of the format '%Y-%m' in order to conform to the HTML5 specification.
+    def month_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag('month', options)
+    end
+
+    # Returns an input tag of type "week". The value should respond to :strftime or be a String
+    # of the format '%Y-W%W' in order to conform to the HTML5 specification.
+    def week_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag('week', options)
+    end
+
+    # Returns an input tag of type "time". The value should respond to :strftime or be a String
+    # of the format '%H:%M:%S' in order to conform to the HTML5 specification.
+    def time_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag('time', options)
+    end
+
+    # Returns an input tag of type "datetime-local". The value should respond to :strftime or be a String
+    # of the format '%Y-%m-%dT%H:%M:%S' in order to conform to the HTML5 specification.
+    def datetime_local_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag('datetime-local', options)
+    end
+
+    # Returns an input tag of type "color".
+    def color_field(object_name, method, options = {})
+      options = options.stringify_keys
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("color", options)
+    end
   end
 
   class InstanceTag < ::ActionView::Helpers::InstanceTag
     include Html5Helpers::RangeOptionParsing
+    include Html5Helpers::TemporalValues
+
     def to_input_field_tag(type, options = {})
+      options['value'] ||= temporalize_value(type) unless type == 'file'
       super(type, parse_range_options(options))
+    end
+
+    protected
+
+    def temporalize_value(type)
+      value = value_before_type_cast(object)
+      case type
+      when 'datetime'
+        value = as_html5_datetime(value)
+      when 'date'
+        value = as_html5_date(value)
+      when 'month'
+        value = as_html5_month(value)
+      when 'week'
+        value = as_html5_week(value)
+      when 'time'
+        value = as_html5_time(value)
+      when 'datetime-local'
+        value = as_html5_datetime_local(value)
+      end
+      value
     end
   end
 

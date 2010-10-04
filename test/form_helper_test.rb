@@ -75,4 +75,44 @@ describe Html5Helpers::FormHelper do
     it_must_set_the_max_to '100'
   end
 
+  describe '#date_field' do
+    before do
+      self.subject = helper.date_field(:post, :publish_date, :object => post)
+    end
+    it_must_create_an_input_of_type 'date'
+    it_must_create_an_input_with_id 'post_publish_date'
+    it_must_create_an_input_with_name 'post[publish_date]'
+    it_must_set_the_value_to '2004-06-15'
+  end
+
+  describe '#month_field' do
+    before do
+      self.subject = helper.month_field(:post, :publish_date, :object => post)
+    end
+    it_must_create_an_input_of_type 'month'
+    it_must_create_an_input_with_id 'post_publish_date'
+    it_must_create_an_input_with_name 'post[publish_date]'
+    it_must_set_the_value_to '2004-06'
+  end
+
+  describe '#week_field' do
+    before do
+      self.subject = helper.week_field(:post, :publish_date, :object => post)
+    end
+    it_must_create_an_input_of_type 'week'
+    it_must_create_an_input_with_id 'post_publish_date'
+    it_must_create_an_input_with_name 'post[publish_date]'
+    it_must_set_the_value_to '2004-W24'
+  end
+
+  describe '#color_field' do
+    before do
+      self.subject = helper.color_field(:post, :background_color, :object => post)
+    end
+    it_must_create_an_input_of_type 'color'
+    it_must_create_an_input_with_id 'post_background_color'
+    it_must_create_an_input_with_name 'post[background_color]'
+    it_must_set_the_value_to '#93f1dc'
+  end
+
 end
