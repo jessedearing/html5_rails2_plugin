@@ -15,6 +15,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
 require 'form_test_macros'
 require 'html5_helpers'
+require 'post'
 
 class MiniTest::Unit::TestCase
 
