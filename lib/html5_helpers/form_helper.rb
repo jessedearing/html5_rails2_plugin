@@ -17,26 +17,26 @@ module Html5Helpers
         options["incremental"] = true unless options.has_key?("incremental")
       end
 
-      ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("search", options)
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("search", options)
     end
 
     # Returns a text_field of type "tel".
     def telephone_field(object_name, method, options = {})
       options = options.stringify_keys
-      ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("tel", options)
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("tel", options)
     end
     alias phone_field telephone_field
 
     # Returns a text_field of type "url".
     def url_field(object_name, method, options = {})
       options = options.stringify_keys
-      ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("url", options)
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("url", options)
     end
 
     # Returns a text_field of type "email".
     def email_field(object_name, method, options = {})
       options = options.stringify_keys
-      ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("email", options)
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("email", options)
     end
 
     # Returns an input tag of type "number".
@@ -45,7 +45,7 @@ module Html5Helpers
     # * Accepts same options as number_field_tag
     def number_field(object_name, method, options = {})
       options = options.stringify_keys
-      ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("number", options)
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("number", options)
     end
 
     # Returns an input tag of type "range".
@@ -54,10 +54,17 @@ module Html5Helpers
     # * Accepts same options as range_field_tag
     def range_field(object_name, method, options = {})
       options = options.stringify_keys
-      ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("range", options)
+      InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("range", options)
     end
   end
-  
+
+  class InstanceTag < ::ActionView::Helpers::InstanceTag
+    include Html5Helpers::RangeOptionParsing
+    def to_input_field_tag(type, options = {})
+      super(type, parse_range_options(options))
+    end
+  end
+
   class FormBuilder < ::ActionView::Helpers::FormBuilder
     #this was based on the ::ActionView::Helpers::FormBuilder class in the Rails code
     FormHelper.instance_methods.each do |selector|

@@ -51,4 +51,28 @@ describe Html5Helpers::FormHelper do
     it_must_set_the_value_to 'http://link.ly/12bc'
   end
 
+  describe '#number_field' do
+    before do
+      self.subject = helper.number_field(:post, :summary_length, :object => post, :within => 0..100)
+    end
+    it_must_create_an_input_of_type 'number'
+    it_must_create_an_input_with_id 'post_summary_length'
+    it_must_create_an_input_with_name 'post[summary_length]'
+    it_must_set_the_value_to '30'
+    it_must_set_the_min_to '0'
+    it_must_set_the_max_to '100'
+  end
+
+  describe '#range_field' do
+    before do
+      self.subject = helper.range_field(:post, :summary_length, :object => post, :within => 0..100)
+    end
+    it_must_create_an_input_of_type 'range'
+    it_must_create_an_input_with_id 'post_summary_length'
+    it_must_create_an_input_with_name 'post[summary_length]'
+    it_must_set_the_value_to '30'
+    it_must_set_the_min_to '0'
+    it_must_set_the_max_to '100'
+  end
+
 end

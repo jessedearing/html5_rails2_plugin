@@ -1,6 +1,8 @@
 module Html5Helpers
   module FormTagHelper
 
+    include Html5Helpers::RangeOptionParsing
+
     def self.install
       ActionView::Helpers::TagHelper::BOOLEAN_ATTRIBUTES.merge(['required', :required, 'autofocus', :autofocus])
     end
@@ -54,10 +56,7 @@ module Html5Helpers
     def number_field_tag(name, value = nil, options = {})
       options = options.stringify_keys
       options["type"] ||= "number"
-      if range = options.delete("in") || options.delete("within")
-        options.update("min" => range.min, "max" => range.max)
-      end
-      text_field_tag(name, value, options)
+      text_field_tag(name, value, parse_range_options(options))
     end
 
     # Creates a range form element.
