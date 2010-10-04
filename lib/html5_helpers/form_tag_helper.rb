@@ -1,5 +1,10 @@
 module Html5Helpers
   module FormTagHelper
+
+    def self.install
+      ActionView::Helpers::TagHelper::BOOLEAN_ATTRIBUTES.merge(['required', :required])
+    end
+
     # Creates a text field of type "search".
     #
     # ==== Options

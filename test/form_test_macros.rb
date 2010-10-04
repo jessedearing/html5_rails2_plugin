@@ -30,4 +30,16 @@ module FormTestMacros
     end
   end
 
+  def it_must_set_the_required_flag
+    it 'must set the required flag' do
+      assert_select_in(subject.to_s, 'input[required=required]')
+    end
+  end
+
+  def it_must_not_set_the_required_flag
+    it 'must not set the required flag' do
+      subject.to_s.wont_match %r{required}
+    end
+  end
+
 end

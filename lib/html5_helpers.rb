@@ -4,6 +4,7 @@ module Html5Helpers
 
   def self.install
     ActionView::Helpers::FormTagHelper.append_features Html5Helpers::FormTagHelper
+    Html5Helpers::FormTagHelper.install
     ::ActionView::Base.class_eval do
       include Html5Helpers::FormHelper
       cattr_accessor :default_form_builder
