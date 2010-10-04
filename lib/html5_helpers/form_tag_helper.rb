@@ -67,5 +67,88 @@ module Html5Helpers
     def range_field_tag(name, value = nil, options = {})
       number_field_tag(name, value, options.stringify_keys.update("type" => "range"))
     end
+
+    # Creates a datetime form element. Value should respond to :strftime or be a String
+    # of the format '%Y-%m-%dT%H:%M:%SZ' in order to conform to the HTML5 specification.
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def datetime_field_tag(name, value = nil, options = {})
+      if value.respond_to?(:strftime)
+        value = value.strftime('%Y-%m-%dT%H:%M:%SZ')
+      end
+      text_field_tag(name, value, options.stringify_keys.update('type' => 'datetime'))
+    end
+
+    # Creates a date form element. Value should respond to :strftime or be a String
+    # of the format '%Y-%m-%d' in order to conform to the HTML5 specification.
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def date_field_tag(name, value = nil, options = {})
+      if value.respond_to?(:strftime)
+        value = value.strftime('%Y-%m-%d')
+      end
+      text_field_tag(name, value, options.stringify_keys.update('type' => 'date'))
+    end
+
+    # Creates a month form element. Value should respond to :strftime or be a String
+    # of the format '%Y-%m' in order to conform to the HTML5 specification.
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def month_field_tag(name, value = nil, options = {})
+      if value.respond_to?(:strftime)
+        value = value.strftime('%Y-%m')
+      end
+      text_field_tag(name, value, options.stringify_keys.update('type' => 'month'))
+    end
+
+    # Creates a week form element. Value should respond to :strftime or be a String
+    # of the format '%Y-W%W' in order to conform to the HTML5 specification.
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def week_field_tag(name, value = nil, options = {})
+      if value.respond_to?(:strftime)
+        value = value.strftime('%Y-W%W')
+      end
+      text_field_tag(name, value, options.stringify_keys.update('type' => 'week'))
+    end
+
+    # Creates a time form element. Value should respond to :strftime or be a String
+    # of the format '%H:%M:%S' in order to conform to the HTML5 specification.
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def time_field_tag(name, value = nil, options = {})
+      if value.respond_to?(:strftime)
+        value = value.strftime('%H:%M:%S')
+      end
+        text_field_tag(name, value, options.stringify_keys.update('type' => 'time'))
+    end
+
+    # Creates a datetime-local form element. Value should respond to :strftime or be a String
+    # of the format '%Y-%m-%dT%H:%M:%S' in order to conform to the HTML5 specification.
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def datetime_local_field_tag(name, value = nil, options = {})
+      if value.respond_to?(:local)
+        value = value.local
+      end
+      if value.respond_to?(:strftime)
+        value = value.strftime('%Y-%m-%dT%H:%M:%S')
+      end
+      text_field_tag(name, value, options.stringify_keys.update('type' => 'datetime-local'))
+    end
+
+    # Creates a text field of type "color".
+    #
+    # ==== Options
+    # * Accepts the same options as text_field_tag.
+    def color_field_tag(name, value = nil, options = {})
+      text_field_tag(name, value, options.stringify_keys.update("type" => "color"))
+    end
   end
 end

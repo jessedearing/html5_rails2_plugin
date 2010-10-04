@@ -74,5 +74,66 @@ describe Html5Helpers::FormTagHelper do
     it_must_set_the_max_to '100'
   end
 
-end
+  describe '#datetime_field_tag' do
+    before do
+      self.subject = helper.datetime_field_tag(:updated_at, Time.utc('2010', '09', '17', '04', '30', '27'))
+    end
+    it_must_create_an_input_of_type 'datetime'
+    it_must_create_an_input_with_name 'updated_at'
+    it_must_set_the_value_to '2010-09-17T04:30:27Z'
+  end
 
+  describe '#date_field_tag' do
+    before do
+      self.subject = helper.date_field_tag(:birthday, Date.parse('2009-01-12'))
+    end
+    it_must_create_an_input_of_type 'date'
+    it_must_create_an_input_with_name 'birthday'
+    it_must_set_the_value_to '2009-01-12'
+  end
+
+  describe '#month_field_tag' do
+    before do
+      self.subject = helper.month_field_tag(:expiry_month, Date.parse('2009-01-12'))
+    end
+    it_must_create_an_input_of_type 'month'
+    it_must_create_an_input_with_name 'expiry_month'
+    it_must_set_the_value_to '2009-01'
+  end
+
+  describe '#week_field_tag' do
+    before do
+      self.subject = helper.week_field_tag(:week, Date.parse('2009-01-12'))
+    end
+    it_must_create_an_input_of_type 'week'
+    it_must_create_an_input_with_name 'week'
+    it_must_set_the_value_to '2009-W02'
+  end
+
+  describe '#time_field_tag' do
+    before do
+      self.subject = helper.time_field_tag(:delivery_time, Time.utc('2010', '09', '17', '04', '30', '27'))
+    end
+    it_must_create_an_input_of_type 'time'
+    it_must_create_an_input_with_name 'delivery_time'
+    it_must_set_the_value_to '04:30:27'
+  end
+
+  describe '#datetime_local_field_tag' do
+    before do
+      self.subject = helper.datetime_local_field_tag(:preferred_contact_start_time, Time.local('2010', '09', '17', '04', '30', '27'))
+    end
+    it_must_create_an_input_of_type 'datetime-local'
+    it_must_create_an_input_with_name 'preferred_contact_start_time'
+    it_must_set_the_value_to '2010-09-17T04:30:27'
+  end
+  
+  describe '#color_field_tag' do
+    before do
+      self.subject = helper.color_field_tag(:background_color, '#dddddd')
+    end
+    it_must_create_an_input_of_type 'color'
+    it_must_create_an_input_with_name 'background_color'
+    it_must_set_the_value_to '#dddddd'
+  end
+end
