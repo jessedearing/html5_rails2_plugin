@@ -12,6 +12,7 @@ describe Html5Helpers::FormHelper do
     end.new
     self.post = Post.new({
       :text => 'some text',
+      :author_email => 'sally@example.org',
       :short_url => 'http://link.ly/12bc',
       :summary_length => '30',
       :publish_date => Date.new(2004, 6, 15),
@@ -28,6 +29,26 @@ describe Html5Helpers::FormHelper do
     it_must_create_an_input_with_name 'post[text]'
     it_must_set_the_value_to 'some text'
     it_must_set_the_required_flag
+  end
+
+  describe '#email_field' do
+    before do
+      self.subject = helper.email_field(:post, :author_email, :object => post)
+    end
+    it_must_create_an_input_of_type 'email'
+    it_must_create_an_input_with_id 'post_author_email'
+    it_must_create_an_input_with_name 'post[author_email]'
+    it_must_set_the_value_to 'sally@example.org'
+  end
+
+  describe '#url_field' do
+    before do
+      self.subject = helper.url_field(:post, :short_url, :object => post)
+    end
+    it_must_create_an_input_of_type 'url'
+    it_must_create_an_input_with_id 'post_short_url'
+    it_must_create_an_input_with_name 'post[short_url]'
+    it_must_set_the_value_to 'http://link.ly/12bc'
   end
 
 end

@@ -1,10 +1,10 @@
 # a model for use in forms helpers and form builders
 
 class Post
-  attr_reader :id, :title, :text, :short_url, :summary_length, :publish_date, :background_color
+  attr_reader :id, :title, :text, :author_email, :short_url, :summary_length, :publish_date, :background_color
 
   def initialize(options = {})
-    @id, @title, @text, @short_url, @summary_length, @publish_date, @background_color = options[:id], options[:title], options[:text], options[:short_url], options[:summary_length], options[:publish_date], options[:background_color]
+    @id, @title, @text, @author_email, @short_url, @summary_length, @publish_date, @background_color = options[:id], options[:title], options[:text], options[:author_email], options[:short_url], options[:summary_length], options[:publish_date], options[:background_color]
   end
 
   def id_before_type_cast

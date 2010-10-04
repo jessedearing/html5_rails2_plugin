@@ -22,17 +22,20 @@ module Html5Helpers
 
     # Returns a text_field of type "tel".
     def telephone_field(object_name, method, options = {})
+      options = options.stringify_keys
       ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("tel", options)
     end
     alias phone_field telephone_field
 
     # Returns a text_field of type "url".
     def url_field(object_name, method, options = {})
+      options = options.stringify_keys
       ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("url", options)
     end
 
     # Returns a text_field of type "email".
     def email_field(object_name, method, options = {})
+      options = options.stringify_keys
       ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("email", options)
     end
 
@@ -41,6 +44,7 @@ module Html5Helpers
     # ==== Options
     # * Accepts same options as number_field_tag
     def number_field(object_name, method, options = {})
+      options = options.stringify_keys
       ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("number", options)
     end
 
@@ -49,6 +53,7 @@ module Html5Helpers
     # ==== Options
     # * Accepts same options as range_field_tag
     def range_field(object_name, method, options = {})
+      options = options.stringify_keys
       ::ActionView::Helpers::InstanceTag.new(object_name, method, self, options.delete('object')).to_input_field_tag("range", options)
     end
   end
