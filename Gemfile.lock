@@ -1,0 +1,17 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    actionpack (2.3.8)
+      activesupport (= 2.3.8)
+      rack (~> 1.1.0)
+    activesupport (2.3.8)
+    minitest (1.7.2)
+    rack (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  actionpack (= 2.3.8)
+  activesupport (= 2.3.8)
+  minitest
